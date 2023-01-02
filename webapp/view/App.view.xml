@@ -1,0 +1,120 @@
+<mvc:View  controllerName="com.san.portfoli.controller.App"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:commons="sap.suite.ui.commons"
+	xmlns:f="sap.f"
+	xmlns:w="sap.ui.integration.widgets"
+	xmlns="sap.m"
+	displayBlock="true">
+  <App id="idApp"  > 
+		<pages >
+			   <Page  backgroundDesign="Transparent"  showHeader="false" showFooter="false">
+				  <content>
+					<l:ResponsiveSplitter  id="splitView">
+						<l:PaneContainer >
+							<l:SplitPane  requiredParentWidth="100" id="default">
+								<l:layoutData  >
+									<l:SplitterLayoutData  minSize="200%" size="35%" />
+								</l:layoutData>
+								<Page  backgroundDesign="Transparent" class="image1" showFooter="true" showHeader="false" >
+								<Panel  backgroundDesign="Transparent">
+									<f:Avatar class="avatar kenburns-top " src="./images/astronut.png" displaySize="XL"/>
+									<f:Avatar class="avatar " src="./images/linkedin.svg" displaySize="XS" displayShape="Square" press="onLinkedIn"/>
+									<f:Avatar class="avatar " src="./images/github.svg" displaySize="XS" displayShape="Square" press="ongithub"/>
+									<f:Avatar class="avatar" src="./images/instagram.png" displaySize="XS" displayShape="Square" press="onInstagram"/>
+									<f:Avatar class="avatar" src= "./images/mail.png" displaySize="XS" displayShape="Square" press="onMail" ></f:Avatar>
+								</Panel>
+							</Page>
+							</l:SplitPane>
+							
+							<l:PaneContainer>
+								<l:SplitPane requiredParentWidth="800">
+									<l:layoutData>
+										<l:SplitterLayoutData  size="80%" />
+									</l:layoutData>
+									<Page showNavButton="true" class="image" backgroundDesign="Transparent"  showFooter="true" showHeader="false">
+										<Panel   backgroundDesign="Transparent"   height="100%" >
+											<Button icon="sap-icon://email" text="Say Hi!" type="Transparent" class="button" press="handlePopoverPress"/>
+											<Button icon="sap-icon://email" text="Hire Me!" type="Transparent" class="button1" press="downloadResume"/>
+											<Text text="{i18n>XINFO}" textAlign="Initial"  class="fontcolor   avatar"></Text>
+											<Text text="{i18n>ss}" textAlign="Initial"   class="fontcolor2 sapUiLargeMarginTop avatar" />
+										</Panel>
+										<IconTabBar backgroundDesign="Transparent"  id="idIconTabBar" select="handleIconTabBarSelect" headerBackgroundDesign="Transparent" class="sapUiResponsiveMargin ">
+											<items>
+												
+												<IconTabFilter text="Skills">
+														<f:GridContainer class=" sapUiMediumMarginBeginEnd sapUiMediumMarginTop ">
+															<f:layout >
+																<f:GridContainerSettings rowSize="7rem" columnSize="4rem" gap="1rem" />
+															</f:layout> 
+															<f:layoutS>
+																<f:GridContainerSettings rowSize="7rem" columnSize="4rem" gap="1rem" />
+															</f:layoutS>
+															<w:Card width="280px" height="auto"    manifest="./card.json" baseUrl="./">
+																<w:layoutData>
+																	<f:GridContainerItemLayoutData rows="4" columns="4" />
+																</w:layoutData>
+															</w:Card>
+															<w:Card manifest="{manifests>/Skill}" width="280px" height="auto"  >
+															<w:layoutData>
+																<f:GridContainerItemLayoutData minRows="4" columns="4" />
+															</w:layoutData>
+														</w:Card>
+														</f:GridContainer>
+													</IconTabFilter>
+													<IconTabFilter text="Work">
+														<commons:Timeline
+														id="idTimeline"
+														enableDoubleSided="true"
+														showHeaderBar="false"
+														
+														growingThreshold="10"
+														content="{/Employees}">
+													<commons:content>
+														<commons:TimelineItem
+																status="Progress"
+																id="idTemplateItem"
+																dateTime="{HireDate}"
+																title="{JobTitle}"
+																userNameClickable="true"
+																userPicture="{Photo}"
+																text="{JobResponsibilities}"
+																userName="{Name}"
+																icon="{Icon}">
+														</commons:TimelineItem>
+													</commons:content>
+												</commons:Timeline>
+													</IconTabFilter>
+													<IconTabFilter  text="Education">
+														<f:GridContainer class="sapUiSmallMarginTop sapUiMediumMarginBeginEnd" busyIndicatorDelay="2000">
+															<f:layout>
+																<f:GridContainerSettings rowSize="7rem" columnSize="4rem" gap="1rem" />
+															</f:layout>
+															<f:layoutS>
+																<f:GridContainerSettings rowSize="7rem" columnSize="4rem" gap="1rem" />
+															</f:layoutS>
+															<w:Card manifest="{manifests>/Education}" class=" sapUiTinyMarginBeginEnd " width="280px" height="auto">
+																<w:layoutData>
+																	<f:GridContainerItemLayoutData minRows="4" columns="4" />
+																</w:layoutData>
+															</w:Card>
+														</f:GridContainer>
+														</IconTabFilter>
+											</items>
+										</IconTabBar>
+											
+										<Text textAlign="Center" class="sapUiResponsiveMargin footerfont"  width="auto" text="{i18n>XFOOTER}"></Text>
+										<Text  textAlign="Initial" class="footerfont" text="{i18n>XCOPY}"></Text>
+									</Page>
+								</l:SplitPane>
+							</l:PaneContainer>
+						</l:PaneContainer>
+					</l:ResponsiveSplitter>
+				  </content>
+				  
+			   </Page>
+			</pages>
+
+		 </App>
+		
+</mvc:View>

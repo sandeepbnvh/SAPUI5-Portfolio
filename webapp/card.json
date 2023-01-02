@@ -1,0 +1,175 @@
+{
+	"sap.app": {
+		"id": "com.san.portfoli",
+		"type": "card",
+		"title": "Sample of a List with Bullet Chart",
+		"subTitle": "Sample of a List with Bullet Chart",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"List",
+				"Chart",
+				"Card",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://list"
+		}
+	},
+	"sap.card": {
+		"type": "List",
+		"header": {
+			"title": " Core Skill",
+			"icon": {
+				"src": "sap-icon://request"
+			}
+			
+		},
+		"content": {
+			"data": {
+				"request": {
+					"url": "./model/data.json"
+				},
+				"path": "/skills"
+			},
+			"maxItems": 6,
+			"item": {
+				"title": "{icon}{Name}",
+				
+				"chart": {
+					"type": "Bullet",
+					"minValue": 0,
+					"maxValue": "{Expected}",
+					"target": "{Target}",
+					"value": "{Actual}",
+					"color": "{ChartColor}"
+				},
+				"icon": {
+					"src": "{Icon}"
+				}
+			}
+		}
+	},
+	"Work": {
+		"sap.app": {
+			"id": "sample.CardsLayout.model.list",
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "AdaptiveCard",
+			"data": {
+				"request": {
+					"url": "./model/data.json"
+				},
+				"path": "/pinfo"
+			},
+			"header": {
+				"title": "{firstname} {lastname}",
+				"subTitle": "{position}",
+				"icon": {
+					"src": "sap-icon://picture"
+				}
+			},
+			"configuration": {
+				"editor": "dt/Configuration",
+				"parameters": {
+					"title" : {
+						"value": "Employee ID card"
+					},
+					"subTitle": {
+						"value": "Obligations and Responsibilities"
+					}
+				}
+			},
+			"content": {
+				"$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+				"type": "AdaptiveCard",
+				"version": "1.0",
+				"body": [
+					{
+						"type": "TextBlock",
+						"text": "{description}",
+						"wrap": true
+					}
+				]
+				
+			}
+		}
+	},
+	"Education":{
+		"sap.card": {
+			"type": "Timeline",
+			"header": {
+				"title": "Education Summary",
+				"icon": {
+					"src": "sap-icon://study-leave"
+				}
+			},
+			"content": {
+				"data": {
+					"request": {
+						"url": "./model/data.json"
+					},
+					"path": "/education"
+				},
+
+				"item": {
+					"dateTime": {
+						"value": "{from}-{to}"
+					},
+					"description": {
+						"value": "Branch : {branch}"
+					},
+					"title": {
+						"value": "{location}."
+					},
+					"owner": {
+						"value": "{name},"
+					},
+					"text":{
+						"value":"Percentage:{percentage}%"
+					},
+					"icon": {
+						"src": "sap-icon://education"
+					}
+				}
+			}
+		}
+	},
+	"Skill":{
+		"sap.card": {
+			"type": "List",
+			"width":"30%",
+			"header": {
+				"title": "Exploring",
+				"icon": {
+					"src": "sap-icon://target-group"
+				}
+			},
+			"content": {
+				"data": {
+					"request": {
+						"url": "./model/data.json"
+					},
+					"path": "/interest"
+				},
+				"item": {
+					"icon": {
+						"src": "{icon}"
+					},
+					"title": "{Name}"
+					
+				}
+			}
+		}
+	}
+}
