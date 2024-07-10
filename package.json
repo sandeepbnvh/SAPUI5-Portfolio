@@ -10,8 +10,11 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
+    "@ui5/cli": "^3.0.0",
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^3.11.0"
+    "@sap/ui5-builder-webide-extension": "^1.1.9",
+    "ui5-task-zipper": "^3.1.3",
+    "mbt": "^1.2.27"
   },
   "scripts": {
     "start-noflp": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsanportfoli-display\"",
