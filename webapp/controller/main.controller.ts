@@ -37,30 +37,45 @@ export default class main extends Controller {
             const oModel = new JSONModel();
             oView.setModel(oModel);
 
-            // Fetch from Firebase Realtime Database path 'portfolio'
-            firebase.database().ref("portfolio").once("value").then((snapshot: any) => {
-                const data = snapshot.val();
-                if (data) {
-                    oModel.setData(data);
-                    oView.setBusy(false);
-                } else {
-                    // Seed database with local data.json if it is empty on Firebase
-                    const localModel = new JSONModel();
-                    localModel.attachRequestCompleted(() => {
-                        const localData = localModel.getData();
-                        firebase.database().ref("portfolio").set(localData).then(() => {
-                            oModel.setData(localData);
-                            oView.setBusy(false);
-                        });
-                    });
-                    localModel.loadData(sap.ui.require.toUrl("com/san/portfolio/model/data.json"));
-                }
-            }).catch((error: any) => {
-                console.error("Failed to fetch portfolio data from Firebase, using fallback data.json: ", error);
+            // Wait for Firebase to be initialized by the component
+            const oComponent = this.getOwnerComponent() as any;
+            if (oComponent && oComponent.firebaseInitPromise) {
+                oComponent.firebaseInitPromise.then(() => {
+                    this._loadPortfolioData(oModel);
+                });
+            } else {
+                // Fallback if component is not ready
                 oModel.loadData(sap.ui.require.toUrl("com/san/portfolio/model/data.json"));
                 oView.setBusy(false);
-            });
+            }
         }
+    }
+
+    private _loadPortfolioData(oModel: JSONModel): void {
+        const oView = this.getView();
+        // Fetch from Firebase Realtime Database path 'portfolio'
+        firebase.database().ref("portfolio").once("value").then((snapshot: any) => {
+            const data = snapshot.val();
+            if (data) {
+                oModel.setData(data);
+                if (oView) oView.setBusy(false);
+            } else {
+                // Seed database with local data.json if it is empty on Firebase
+                const localModel = new JSONModel();
+                localModel.attachRequestCompleted(() => {
+                    const localData = localModel.getData();
+                    firebase.database().ref("portfolio").set(localData).then(() => {
+                        oModel.setData(localData);
+                        if (oView) oView.setBusy(false);
+                    });
+                });
+                localModel.loadData(sap.ui.require.toUrl("com/san/portfolio/model/data.json"));
+            }
+        }).catch((error: any) => {
+            console.error("Failed to fetch portfolio data from Firebase, using fallback data.json: ", error);
+            oModel.loadData(sap.ui.require.toUrl("com/san/portfolio/model/data.json"));
+            if (oView) oView.setBusy(false);
+        });
     }
 
     public handleIconTabBarSelect(): void {
@@ -126,8 +141,11 @@ export default class main extends Controller {
                 oDialog.open();
             }
 
+            const fbModel = oView.getModel("firebase") as JSONModel;
+            const smtpToken = fbModel ? fbModel.getProperty("/env/SMTP_SECURE_TOKEN") : null;
+
             Email.send({
-                SecureToken: process.env.SMTP_SECURE_TOKEN,
+                SecureToken: smtpToken || "41f3b9f9-dfd0-4acd-8e47-4d82d5c96692",
                 To: 'sandeep.bnvh@gmail.com',
                 From: 'sandeep.bnvh2@gmail.com',
                 Subject: name + " sent a message -- Portfolio!!!",
