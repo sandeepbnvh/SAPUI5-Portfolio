@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f">
+	<ResponsivePopover showHeader="false" placement="Auto"  id="mypopover" >
+	<BusyDialog id="BusyDialog"></BusyDialog>
+<form:SimpleForm  backgroundDesign="Transparent" id="SimpleFormToolbar"
+									editable="true"
+									layout="ResponsiveGridLayout"
+									singleContainerFullSize="false"
+									ariaLabelledBy="Title1" >
+									<form:content>
+										<Label  text="Name" />
+										<Input  placeholder="Enter your Name" required="true" id="name" value=" " />
+										<Label text="Phone Number" />
+										<Input required="true"   placeholder="Enter your Phone Number" id="phNum" type="Tel" value=""/>
+										<Label text="Email" />
+										<Input required="true"  placeholder="Enter your email" id="email" type="Email" value=""/>
+										<Label text="Message" />
+										<TextArea placeholder="Type your message" required="true" id="message" value="" ></TextArea>
+										<SegmentedButton  selectedKey="small">
+											<items>
+												<SegmentedButtonItem press="onSave" text="Submit" icon="sap-icon://paper-plane"  />
+												<SegmentedButtonItem press="initializeForm" text="Reset" icon="sap-icon://reset" />
+												<SegmentedButtonItem  press="handleCloseButton" text="Cancel" icon="sap-icon://decline" />
+											</items>
+										</SegmentedButton>
+									</form:content>
+								</form:SimpleForm>
+							</ResponsivePopover>
+</core:FragmentDefinition>
